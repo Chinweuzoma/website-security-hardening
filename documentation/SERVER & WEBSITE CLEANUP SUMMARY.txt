@@ -1,0 +1,57 @@
+SERVER & WEBSITE CLEANUP SUMMARY
+
+
+WHAT HAPPENED
+- A DigitalOcean droplet hosting multiple church websites was flagged for suspicious activity.
+- DigitalOcean temporarily blocked the droplet at the network level.
+- To continue cleanup, a new droplet was created and access was restored so remediation could be completed.
+
+WEBSITES INVOLVED
+- ecclesiahills.org
+- wetouchtheworld.org
+- collidecentral.com
+
+- All sites use WordPress as the CMS.
+- Cloudflare is used for DNS, CDN, and security.
+- DigitalOcean is the hosting provider.
+
+WHAT WAS DONE
+- Regained SSH access after DigitalOcean lifted the network block.
+- Created two server users for access:
+  - deploy
+  - sysadmin
+- Identified WordPress installations on the server.
+- Confirmed WordPress files for wetouchtheworld.org are located at:
+  WordPress application directory
+  (mounted into the WordPress container)
+- Installed Wordfence (there was no WordPress security plugin previously).
+- Ran security scans which flagged multiple files and plugins in critical or unsafe states.
+- Deleted or repaired compromised files.
+- Uninstalled and reinstalled affected plugins from clean sources.
+- Repaired WordPress core files where necessary.
+- Restored required theme plugins:
+  - WPBakery Visual Composer
+  - Slider Revolution
+- Reactivated plugins that were previously active to return sites to original behavior.
+- Fixed frontend and layout issues caused during reinstalls, including the homepage/slider area on wetouchtheworld.org.
+- Reset WordPress admin password(s).
+- Configured Wordfence alerts to notify the admin going forward.
+- Purged Cloudflare cache.
+- No Cloudflare zones or DNS records were deleted.
+
+CURRENT STATE
+- Websites are loading normally.
+- Security scan alerts cleared after remediation.
+- No recurring malicious activity observed.
+- Access details will be shared directly for continuity.
+
+RECOMMENDED NEXT STEPS
+- Enable 2FA on:
+  - WordPress
+  - Cloudflare
+  - DigitalOcean
+- Rotate passwords if desired.
+- Review admin users.
+- Decide when to delete the old droplet.
+- Consider modernizing the setup, as parts of the stack are relatively old.
+- Optionally separate the sites onto different droplets to reduce future risk.
